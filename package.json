@@ -1,0 +1,36 @@
+{
+  "name": "octobot",
+  "version": "0.0.1",
+  "author": "myoung34",
+  "private": true,
+  "keywords": [
+    "hubot",
+    "octobot",
+    "bot"
+  ],
+  "description": "Your friendly chat robot",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/github/hubot/raw/master/LICENSE"
+    }
+  ],
+  "repository": "https://github.com/myoung34/docker-octobot.git",
+  "dependencies": {
+    "hubot": ">= 2.19.0",
+    "hubot-flip": ">= 2.17.0",
+    "hubot-rate-limit": ">= 1.0.1",
+    "hubot-redis-brain": ">= 0.0.4",
+    "hubot-slack": ">= 4.3.4",
+    "hubot-slack-api": "^2.2.0",
+    "hoek": "^6.0.0"
+  },
+  "engines": {
+    "node": ">= 6.2.2",
+    "npm": "~2.14.12"
+  },
+  "scripts": {},
+  "devDependencies": {},
+  "main": "index.js",
+  "license": "MIT"
+}
