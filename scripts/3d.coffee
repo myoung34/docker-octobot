@@ -21,7 +21,6 @@ uniqueId = (length=8) ->
 module.exports = (robot) ->
   web = new WebClient(process.env.HUBOT_SLACK_TOKEN);
   config = JSON.parse(process.env.CONFIG)
-  apiToken = process.env.OCTOPRINT_API_TOKEN
 
   robot.listen(
     # Matcher
@@ -32,6 +31,7 @@ module.exports = (robot) ->
       command = response.match[1]
       printer = valueOrDefault(response.match[2], "").trim()
       printerConfig = valueOrDefault(config["#{printer}"], config[Object.keys(config)[0]]) 
+      apiToken = printerConfig.OCTOPRINT_API_TOKEN
 
       if command == "snapshot"
         response.send "Getting snapshot"
@@ -57,7 +57,7 @@ module.exports = (robot) ->
         })
         robot.http("#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.OCTOPRINT_PORT}/api/job")
           .header('Content-Type', 'application/json')
-          .header('X-Api-Key', process.env.OCTOPRINT_API_TOKEN)
+          .header('X-Api-Key', apiToken)
           .post(data) (err, res, body) ->
             if err
               response.send "Encountered an error :( #{err}"
@@ -67,7 +67,7 @@ module.exports = (robot) ->
       else if command == "status"
         robot.http("#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.OCTOPRINT_PORT}/api/job")
           .header('Content-Type', 'application/json')
-          .header('X-Api-Key', process.env.OCTOPRINT_API_TOKEN)
+          .header('X-Api-Key', apiToken)
           .get() (err, res, body) ->
             if err
               response.send "Encountered an error :( #{err}"
