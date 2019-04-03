@@ -1,16 +1,15 @@
-FROM articulate/articulate-node:8-alpine
+FROM alpine:latest
 
-RUN apk add -U --no-cache imagemagick
+RUN apk add -U --no-cache imagemagick nodejs yarn
 
-USER $SERVICE_USER
+RUN mkdir -p /opt/hubot/scripts/
+COPY package.json /opt/hubot/
+WORKDIR /opt/hubot
+RUN yarn install
 
-RUN mkdir $SERVICE_ROOT/scripts/
-COPY --chown=service:service package.json $SERVICE_ROOT/
-RUN yarn install && yarn cache clean
+COPY . /opt/hubot/
+ENV PATH $PATH:/opt/hubot/node_modules/.bin
 
-COPY --chown=service:service . $SERVICE_ROOT/
-ENV PATH $PATH:/$SERVICE_ROOT/node_modules/.bin
-
-VOLUME /service/images
+VOLUME /opt/hubot/images
 
 CMD hubot --adapter slack --name $HUBOT_NAME
