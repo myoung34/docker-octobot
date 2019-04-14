@@ -46,10 +46,19 @@ module.exports = (robot) ->
         @exec = require('child_process').exec
         @exec cmd, (error, stdout, stderr) -> 
           if error
-            response.send error
+            response.send "Error: " + error
             return
           else
-            web.files.upload(fileName, {message: '',channels: '#general', filetype: 'jpg', mimetype: 'image/jpeg', file: fs.readFileSync(fileName)},(err, response) ->
+            web.files.upload(
+              fileName, {
+                message: '',
+                channels: '#general',
+                filetype: 'jpg',
+                mimetype: 'image/jpeg',
+                file: fs.readFileSync(fileName)
+              },(err, response) ->
+                console.log(error);
+                console.log(response);
             );
       else if command == "cancel" or command == "stop"
         data = JSON.stringify({

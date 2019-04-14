@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add -U --no-cache imagemagick nodejs yarn
+RUN apk add -U --no-cache imagemagick nodejs yarn curl
 
 RUN mkdir -p /opt/hubot/scripts/
 COPY package.json /opt/hubot/
