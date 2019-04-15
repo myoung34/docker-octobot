@@ -9,6 +9,7 @@ services:
     tty: true
     environment:
       - HUBOT_NAME=octobot
+      - HUBOT_SLACK_CHANNEL=#general
     env_file:
         - .env
     volumes:

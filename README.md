@@ -20,6 +20,7 @@ A hubot Slack bot designed to work with [octoprint](http://octoprint.org)
 Almost everything is configured with environment variables:
 
 `HUBOT_SLACK_TOKEN` - The slack token to use. Generate one [here](https://slack.dev/hubot-slack/)
+`HUBOT_SLACK_CHANNEL` - The slack channel to use.
 `HUBOT_NAME` - The bot name to assign in slack
 `CONFIG` - The JSON configuration. See below
 

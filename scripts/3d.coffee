@@ -32,6 +32,7 @@ module.exports = (robot) ->
       printer = valueOrDefault(response.match[2], "").trim()
       printerConfig = valueOrDefault(config["#{printer}"], config[Object.keys(config)[0]]) 
       apiToken = printerConfig.OCTOPRINT_API_TOKEN
+      slackChannel = process.env.HUBOT_SLACK_CHANNEL
 
       if command == "snapshot"
         response.send "Getting snapshot"
@@ -52,7 +53,7 @@ module.exports = (robot) ->
             web.files.upload(
               fileName, {
                 message: '',
-                channels: '#general',
+                channels: "#{slackChannel}",
                 filetype: 'jpg',
                 mimetype: 'image/jpeg',
                 file: fs.readFileSync(fileName)
