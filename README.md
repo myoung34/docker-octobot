@@ -33,6 +33,7 @@ The configuration is a JSON object that represents one or more printers:
     "OCTOPRINT_PROTOCOL": "http://",
     "OCTOPRINT_PORT": "80",
     "MJPG_PORT": "8080",
+    "ROTATE": "0",
     "OCTOPRINT_API_TOKEN": "1111111111111111"
   },
   "prusa": {
@@ -40,6 +41,7 @@ The configuration is a JSON object that represents one or more printers:
     "OCTOPRINT_PROTOCOL": "http://",
     "OCTOPRINT_PORT": "80",
     "MJPG_PORT": "8080",
+    "ROTATE": "90",
     "OCTOPRINT_API_TOKEN": "2222222222222222"
   }
 }

@@ -43,7 +43,7 @@ module.exports = (robot) ->
         fileName="images/" + uniqueId() + ".jpg"
 
         url = "#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.MJPG_PORT}/?action=snapshot"
-        cmd = "curl #{url} > #{tmpFileName} && convert #{tmpFileName} -rotate 90 #{fileName}"
+        cmd = "curl #{url} > #{tmpFileName} && convert #{tmpFileName} -rotate #{printerConfig.ROTATE} #{fileName}"
         @exec = require('child_process').exec
         @exec cmd, (error, stdout, stderr) -> 
           if error
