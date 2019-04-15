@@ -4,7 +4,7 @@ build:
 
 release:
 	docker push myoung34/docker-octobot:latest
-	docker push myoung34/docker-octobot:armv6
+	docker push myoung34/docker-octobot:armv6l
 
 run: SHELL:=/bin/bash
 run: build
