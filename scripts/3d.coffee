@@ -47,7 +47,7 @@ module.exports = (robot) ->
         @exec = require('child_process').exec
         @exec cmd, (error, stdout, stderr) -> 
           if error
-            response.send "Error: " + error
+            console.log(error)
             return
           else
             web.files.upload(
@@ -70,7 +70,7 @@ module.exports = (robot) ->
           .header('X-Api-Key', apiToken)
           .post(data) (err, res, body) ->
             if err
-              response.send "Encountered an error :( #{err}"
+              console.log("Encountered an error :( #{err}")
               return
           response.send "Cancelled print successfully"
           return
@@ -80,7 +80,7 @@ module.exports = (robot) ->
           .header('X-Api-Key', apiToken)
           .get() (err, res, body) ->
             if err
-              response.send "Encountered an error :( #{err}"
+              console.log("Encountered an error :( #{err}")
               return
             data = JSON.parse body
             timeRemaining = parseDefaultTime(data.progress.printTimeLeft, "n/a", " minutes")
