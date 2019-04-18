@@ -36,6 +36,7 @@ module.exports = (robot) ->
 
       if command == "snapshot"
         response.send "Getting snapshot"
+        console.log("Getting snapshot for #{printer}")
 
         downloadFile = (url, fileName) ->
 
@@ -62,18 +63,32 @@ module.exports = (robot) ->
                 console.log(response);
             );
       else if command == "cancel" or command == "stop"
-        data = JSON.stringify({
-            command: 'cancel'
-        })
         robot.http("#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.OCTOPRINT_PORT}/api/job")
           .header('Content-Type', 'application/json')
           .header('X-Api-Key', apiToken)
-          .post(data) (err, res, body) ->
+          .get() (err, res, body) ->
             if err
               console.log("Encountered an error :( #{err}")
               return
-          response.send "Cancelled print successfully"
-          return
+            data = JSON.parse body
+            status = valueOrDefault(data.state, "n/a")
+            if status == "Printing from SD"
+              response.send "Cannot cancel a job thats being run via SD card."
+              console.log("Cannot cancel a job thats being run via SD card.")
+              return
+            console.log("running cancel (#{command}) for #{printer}")
+            data = JSON.stringify({
+                command: 'cancel'
+            })
+            robot.http("#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.OCTOPRINT_PORT}/api/job")
+              .header('Content-Type', 'application/json')
+              .header('X-Api-Key', apiToken)
+              .post(data) (err, res, body) ->
+                if err
+                  console.log("Encountered an error :( #{err}")
+                  return
+              response.send "Cancelled print successfully"
+              return
       else if command == "status"
         robot.http("#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.OCTOPRINT_PORT}/api/job")
           .header('Content-Type', 'application/json')
