@@ -10,6 +10,8 @@ A hubot Slack bot designed to work with [octoprint](http://octoprint.org)
 
 ## Commands
 
+`!help` - list commands
+`!list` - list printers as links
 `!stop {printer}` - stop a print
 `!cancel {printer}` - stop a print
 `!snapshot {printer}` - stop a print

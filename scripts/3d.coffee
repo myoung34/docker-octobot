@@ -34,7 +34,28 @@ module.exports = (robot) ->
       apiToken = printerConfig.OCTOPRINT_API_TOKEN
       slackChannel = process.env.HUBOT_SLACK_CHANNEL
 
+      if command == "help"
+        [
+          "`!help` - list commands", 
+          "`!list` - list printers as links", 
+          "`!stop {printer}` - stop a print", 
+          "`!cancel {printer}` - stop a print", 
+          "`!snapshot {printer}` - stop a print", 
+          "`!status {printer}` - stop a print", 
+        ].forEach (_command) ->
+          response.send 
+            attachments: [{ title: "#{_command}"}]
+        return
+      if command == "list"
+        Object.keys(config).forEach (_name) ->
+          url = "#{config[_name].OCTOPRINT_PROTOCOL}#{config[_name].OCTOPRINT_URL}"
+          response.send 
+            attachments: [{ title: "#{_name}", title_link: "#{url}" }]
+        return
       if command == "snapshot"
+        if printer == "" 
+          response.send "Please give a printer name. `!list` to get printer(s)"
+          return
         response.send "Getting snapshot"
         console.log("Getting snapshot for #{printer}")
 
@@ -63,6 +84,9 @@ module.exports = (robot) ->
                 console.log(response);
             );
       else if command == "cancel" or command == "stop"
+        if printer == "" 
+          response.send "Please give a printer name. `!list` to get printer(s)"
+          return
         robot.http("#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.OCTOPRINT_PORT}/api/job")
           .header('Content-Type', 'application/json')
           .header('X-Api-Key', apiToken)

@@ -4,6 +4,5 @@ before_script:
 
 release:
   script:
-    - make build
     - echo ${HUB_REGISTRY_PASSWORD} | docker login -u ${HUB_REGISTRY_USER} --password-stdin
     - make release
