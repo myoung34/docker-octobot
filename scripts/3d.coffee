@@ -36,12 +36,12 @@ module.exports = (robot) ->
 
       if command == "help"
         [
-          "`!help` - list commands", 
-          "`!list` - list printers as links", 
-          "`!stop {printer}` - stop a print", 
-          "`!cancel {printer}` - stop a print", 
-          "`!snapshot {printer}` - stop a print", 
-          "`!status {printer}` - stop a print", 
+          "`!help` - list commands",
+          "`!list` - list printers as links",
+          "`!stop {printer}` - stop a print",
+          "`!cancel {printer}` - stop a print",
+          "`!snapshot {printer}` - take a picture from the webcam and send it back as a slack attachment",
+          "`!status {printer}` - get status of a printer",
         ].forEach (_command) ->
           response.send 
             attachments: [{ title: "#{_command}"}]

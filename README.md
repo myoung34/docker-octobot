@@ -14,8 +14,8 @@ A hubot Slack bot designed to work with [octoprint](http://octoprint.org)
 `!list` - list printers as links
 `!stop {printer}` - stop a print
 `!cancel {printer}` - stop a print
-`!snapshot {printer}` - stop a print
-`!status {printer}` - stop a print
+`!snapshot {printer}` - take a picture from the webcam and send it back as a slack attachment
+`!status {printer}` - get status of a printer
 
 ## Configuration
 
