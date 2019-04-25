@@ -28,9 +28,19 @@ module.exports = (robot) ->
       return unless message.text
       message.match(/^!([a-zA-Z]*)( .*)?$/)
     (response) ->
+      if Object.keys(config).length == 0
+        response.send "Error: The config contains no printers."
+        return
+
       command = response.match[1]
       printer = valueOrDefault(response.match[2], "").trim()
-      printerConfig = valueOrDefault(config["#{printer}"], config[Object.keys(config)[0]]) 
+
+      if printer == "" && Object.keys(config).length > 1
+        response.send "Please give a printer name. `!list` to get printer(s)"
+        return
+
+      printerConfig = valueOrDefault(config["#{printer}"], config[Object.keys(config)[0]])
+
       apiToken = printerConfig.OCTOPRINT_API_TOKEN
       slackChannel = process.env.HUBOT_SLACK_CHANNEL
 
@@ -53,9 +63,6 @@ module.exports = (robot) ->
             attachments: [{ title: "#{_name}", title_link: "#{url}" }]
         return
       if command == "snapshot"
-        if printer == "" 
-          response.send "Please give a printer name. `!list` to get printer(s)"
-          return
         response.send "Getting snapshot"
         console.log("Getting snapshot for #{printer}")
 
@@ -84,9 +91,6 @@ module.exports = (robot) ->
                 console.log(response);
             );
       else if command == "cancel" or command == "stop"
-        if printer == "" 
-          response.send "Please give a printer name. `!list` to get printer(s)"
-          return
         robot.http("#{printerConfig.OCTOPRINT_PROTOCOL}#{printerConfig.OCTOPRINT_URL}:#{printerConfig.OCTOPRINT_PORT}/api/job")
           .header('Content-Type', 'application/json')
           .header('X-Api-Key', apiToken)
