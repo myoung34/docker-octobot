@@ -38,6 +38,9 @@ module.exports = (robot) ->
       if printer == "" && Object.keys(config).length > 1
         response.send "Please give a printer name. `!list` to get printer(s)"
         return
+      if !config["#{printer}"]
+        response.send "Invalid printer name. `!list` to get printer(s)"
+        return
 
       printerConfig = valueOrDefault(config["#{printer}"], config[Object.keys(config)[0]])
 
