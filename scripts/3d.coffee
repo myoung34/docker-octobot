@@ -35,13 +35,6 @@ module.exports = (robot) ->
       command = response.match[1]
       printer = valueOrDefault(response.match[2], "").trim()
 
-      if printer == "" && Object.keys(config).length > 1
-        response.send "Please give a printer name. `!list` to get printer(s)"
-        return
-      if !config["#{printer}"]
-        response.send "Invalid printer name. `!list` to get printer(s)"
-        return
-
       printerConfig = valueOrDefault(config["#{printer}"], config[Object.keys(config)[0]])
 
       apiToken = printerConfig.OCTOPRINT_API_TOKEN
@@ -65,6 +58,14 @@ module.exports = (robot) ->
           response.send 
             attachments: [{ title: "#{_name}", title_link: "#{url}" }]
         return
+
+      if printer == "" && Object.keys(config).length > 1
+        response.send "Please give a printer name. `!list` to get printer(s)"
+        return
+      if !config["#{printer}"]
+        response.send "Invalid printer name. `!list` to get printer(s)"
+        return
+
       if command == "snapshot"
         response.send "Getting snapshot"
         console.log("Getting snapshot for #{printer}")
