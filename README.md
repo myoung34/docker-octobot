@@ -1,6 +1,8 @@
 OctoBot
 =======
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/myoung34/docker-octobot.svg)](https://hub.docker.com/r/myoung34/docker-octobot)
+
 A hubot Slack bot designed to work with [octoprint](http://octoprint.org)
 
 
