@@ -8,7 +8,7 @@ A hubot Slack bot designed to work with [octoprint](http://octoprint.org)
 
 ![snapshot](img/snapshot.png) 
 ![status](img/status.png)
-![stop](img/status.png)
+![stop](img/stop.png)
 
 ## Commands
 
